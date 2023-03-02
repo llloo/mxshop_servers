@@ -1,0 +1,5 @@
+.python-version
+.pytest-cache/
+.pyi
+__pycache__/
+.idea
