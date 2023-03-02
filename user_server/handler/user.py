@@ -122,3 +122,18 @@ class UserService(user_pb2_grpc.UserServicer):
             context.set_code(grpc.StatusCode.NOT_FOUND)
             context.set_details("用户不存在")
             return empty_pb2.Empty()
+
+    @logger.catch
+    def mobileLogin(self, request, context):
+        mobile = request.mobile
+
+        try:
+            user = User.get(mobile=mobile)
+            if user.check_password(raw_password=request.rawPassword):
+                return user_pb2.LoginResultResponse(success=True)
+            else:
+                return user_pb2.LoginResultResponse(success=False)
+        except peewee.DoesNotExist:
+            context.set_code(grpc.StatusCode.NOT_FOUND)
+            context.set_details("用户不存在")
+            return user_pb2.LoginResultResponse(success=False)

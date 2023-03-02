@@ -1,1 +1,1 @@
-python -m  grpc_tools.protoc --python_out=./proto --grpc_python_out=./proto --mypy_out=./proto -I ./proto user.proto
+python -m  grpc_tools.protoc --python_out=../protos --grpc_python_out=../protos --mypy_out=../protos -I ../protos user.proto
