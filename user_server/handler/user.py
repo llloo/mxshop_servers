@@ -130,7 +130,7 @@ class UserService(user_pb2_grpc.UserServicer):
         try:
             user = User.get(mobile=mobile)
             if user.check_password(raw_password=request.password):
-                return user_pb2.LoginResultResponse(success=True)
+                return user_pb2.LoginResultResponse(success=True, userId=user.id, nickName=user.nick_name)
             else:
                 return user_pb2.LoginResultResponse(success=False)
         except peewee.DoesNotExist:
