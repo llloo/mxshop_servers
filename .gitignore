@@ -3,3 +3,4 @@
 .pyi
 __pycache__/
 .idea
+logs/

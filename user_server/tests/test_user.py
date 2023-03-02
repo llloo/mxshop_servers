@@ -4,8 +4,8 @@ import pytest
 from google.protobuf import empty_pb2
 import grpc
 
+from ..settings import settings
 from protos import user_pb2_grpc, user_pb2
-from user_server.settings import settings
 
 
 class TestUser:
@@ -73,6 +73,12 @@ class TestUser:
 
         user = self.stub.getUserById(user_pb2.UserIdRequest(id=user.id))
         assert user.nickName == new_nick_name
+
+    def test_mobile_login(self):
+        resp = self.stub.mobileLogin(user_pb2.MobileLoginRequest(mobile=self.mobile, password=self.password))
+
+        assert isinstance(resp, user_pb2.LoginResultResponse)
+        assert resp.success
 
     def test_delete_user(self):
         user = self.stub.getUserByMobile(user_pb2.UserMobileRequest(mobile=self.mobile))

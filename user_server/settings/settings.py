@@ -1,5 +1,12 @@
+import os
+import sys
+
 from playhouse.pool import PooledMySQLDatabase
 from playhouse.shortcuts import ReconnectMixin
+
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, BASE_DIR)
 
 
 class ReconnectMysqlDatabase(ReconnectMixin, PooledMySQLDatabase):

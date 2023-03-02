@@ -3,9 +3,9 @@ from concurrent import futures
 from loguru import logger
 import grpc
 
-from user_server.handler.user import UserService
+from settings import settings
+from handler.user import UserService
 from protos import user_pb2_grpc
-from user_server.settings import settings
 
 logger.add("logs/user.log", rotation="50 MB", backtrace=True, diagnose=True)
 
