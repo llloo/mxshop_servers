@@ -1,5 +1,4 @@
 import collections
-import sys
 import threading
 
 import grpc
@@ -84,7 +83,7 @@ class HealthServicer(_health_pb2_grpc.HealthServicer):
         return callback
 
     def Check(self, request, context):
-        logger.info("health check request...")
+        logger.debug("health check request...")
         with self._lock:
             status = self._server_status.get(request.service)
             if status is None:
