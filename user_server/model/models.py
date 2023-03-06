@@ -1,7 +1,7 @@
 from passlib.hash import pbkdf2_sha256
 from peewee import *
 
-from user_server.settings import settings
+from . import DB
 
 
 def make_password(raw_password):
@@ -10,7 +10,7 @@ def make_password(raw_password):
 
 class BaseModel(Model):
     class Meta:
-        database = settings.DB
+        database = DB
 
 
 class User(BaseModel):

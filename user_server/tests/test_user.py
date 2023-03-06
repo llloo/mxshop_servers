@@ -6,12 +6,14 @@ import grpc
 
 from ..settings import settings
 from protos import user_pb2_grpc, user_pb2
+from . import service
 
 
 class TestUser:
 
     def setup_class(self):
-        self.channel = grpc.insecure_channel("localhost:" + settings.SERVER_PORT)
+        service.start_server()
+        self.channel = grpc.insecure_channel(f"localhost:{settings.SERVER_PORT_TEST}")
         self.stub = user_pb2_grpc.UserStub(self.channel)
 
         self.nick_name = "test_nick_name"
@@ -21,6 +23,7 @@ class TestUser:
 
     def teardown_class(self):
         self.channel.close()
+        service.stop_server()
 
     def test_create_user(self):
         create_user_info = user_pb2.CreateUserInfoRequest(
